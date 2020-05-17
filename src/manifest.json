@@ -1,0 +1,18 @@
+{
+"manifest_version": 2,
+    "name": "dogy, cat",
+    "description": "[your extension description here]",
+    "version": "1.0",
+    "web_accessible_resources" : ["styles.css"],
+    "content_scripts": [
+        {
+            "matches": [
+                "*://www.google.com/search*"
+            ],
+            "js": [
+                "content.js"
+            ],
+            "run_at": "document_end"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+/*h3[target=_selected_large_text] {
+    background-color: green;
+    font-size: small;
+    font-style: italic;
+}*/
+
+:root {
+    --bg-color: unset;
+    --font-siz: 20px;
+}
+
+h3[target=_selected_large_text] {
+    background-color: var(--bg-color);
+    font-size: var(--font-siz) !important;
+    transition: all 500ms ease-out;
+}
+.SIMPLE-SEARCH-RESULT:hover,
+.SIMPLE-SEARCH-RESULT:focus {
+    --bg-color: rgba(255, 255, 0, 0.582);
+    --font-siz: 250%;
+}

@@ -1,0 +1,155 @@
+// Written By Peter Hindes
+
+// Here we define the class types and what they contain. If these change in the future they can be updated here easily.
+const simpleSearchResultChildH3Title = "LC20lb DKV0Md";
+
+const topStoriesMainDiv = "CBQQAA"; // Not a class. Data is in tag "data-hveid"
+const childOfChildOfTopStoriesDiv = "e2BEnf U7izfe";
+
+const childOfVideoDiv = "CBMQAA"; // Not a class. Data is in tag "data-hveid"
+const childOfChildOfVideoDiv = "e2BEnf U7izfe";
+
+const peopleAlsoAskMainDiv = "g kno-kp mnr-c g-blk";
+
+const resultsContainerId = "rso"; // Not a class. Data is in an id tag
+
+
+// Reorder them in a friendly way without breakes between result types
+//document.getElementsByClassName(childOfChildOfTopStoriesDiv).parentNode.style.order = "4";
+var targetMaster = document.getElementById(resultsContainerId);
+/*var order = new Array(targetMaster.childElementCount);
+for (var i = 0; i < targetMaster.childElementCount; i++){
+    order[i] = targetMaster.childElementCount - i -1 ;
+}
+var results = targetMaster.children;
+var newOrder = document.createDocumentFragment();
+
+order.forEach(function(idx) {
+    newOrder.appendChild(results[idx].cloneNode(true));
+});
+
+targetMaster.innerHTML = null;
+targetMaster.appendChild(newOrder);
+*/
+
+
+
+var videosTarget = document.getElementsByClassName(childOfChildOfVideoDiv);
+console.log(videosTarget)
+console.log (videosTarget[0].parentNode.parentNode);
+
+//var viddddd = document.querySelector("g-section-with-header[data-hveid=\"CBwQAA\"]");
+setTimeout(() => {  console.log(document.querySelector("g-section-with-header[data-hveid='CBwQAA']")); }, 2000);
+
+
+//targetMaster.appendChild(videosTarget); // Add to end
+
+//videosTarget.outerHTML = null; // Remove old
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Section adds css in a debugable way.
+function injectStyles(url) {
+    var elem = document.createElement('link');
+    elem.rel = 'stylesheet';
+    elem.setAttribute('href', url);
+    document.body.appendChild(elem);
+}
+injectStyles(chrome.extension.getURL('styles.css'));
+
+
+// Collects all elements that were selectable when the script first ran
+const keyboardfocusableElements = [...document.querySelectorAll( // credit: https://zellwk.com/blog/keyboard-focusable-elements/
+    'a, button, input, textarea, select, details, [tabindex]:not([tabindex="-1"])'
+)].filter(el => !el.hasAttribute('disabled'));
+
+// This section makes everything that can be selected have a tabindex of 1000 so we have some room below the new default of 1000 to put the things we want first
+for (var i = 0; i < keyboardfocusableElements.length; i++) {
+    var element = keyboardfocusableElements[i];
+
+    element.setAttribute("tabindex","1000");
+}
+
+// This section puts the "SIMPLE-SEARCH-RESULT" class on search resut links. These links are the parents of their titles which we fetch here by their class "LC20lb DKV0Md".
+var elements = document.getElementsByClassName(simpleSearchResultChildH3Title);
+for (var i = 0; i < elements.length; i++) {
+    var element = elements[i];
+
+    element.setAttribute("target","_selected_large_text");
+
+    element.parentNode.className = "SIMPLE-SEARCH-RESULT";
+    // This puts simple search results before everything else
+    element.parentNode.setAttribute("tabindex","999");
+    if (i == 0) {
+        element.parentNode.setAttribute("autofocus","true");
+    }
+}
+
+/*
+var elements = document.getElementsByTagName("*");
+for (var i = 0; i < elements.length; i++) {
+    var element = elements[i];
+
+    //console.log(element.tabindex = "1");
+
+    if (element.className == "SIMPLE-SEARCH-RESULT"){
+        
+    }
+}
+
+
+//element.setAttribute    
+/*
+for (var j = 0; j < element.childNodes.length; j++) { // Works on children (tags not present here)
+    var node = element.childNodes[j];
+
+    if (node.nodeType === 3) {
+        var text = node.nodeValue;
+        var replacedText = text.replace(/cats/gi, 'dog haters');
+
+        if (replacedText !== text) {
+            element.replaceChild(document.createTextNode(replacedText), node);
+        }
+    }
+}*/
+
+/*
+
+
+
+    element.parentNode.onfocus = function() { // Make font big when selected
+        for (var j = 0; j < this.childNodes.length; j++) { // Works on children
+            var node = this.childNodes[j];
+            if (node.className == "LC20lb DKV0Md"){
+                node.setAttribute("target","_selected_large_text");
+            }
+        }
+    };
+
+    element.parentNode.onblur = function() { // Make font small when selection ends
+        for (var j = 0; j < this.childNodes.length; j++) { // Works on children
+            var node = this.childNodes[j];
+            if (node.className == "LC20lb DKV0Md"){
+                node.setAttribute("target","_none");
+            }
+        }
+    };
+*/
+
+
+//LC20lb DKV0Md
