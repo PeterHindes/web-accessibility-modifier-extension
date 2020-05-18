@@ -1,7 +1,7 @@
 {
 "manifest_version": 2,
-    "name": "dogy, cat",
-    "description": "[your extension description here]",
+    "name": "WAMe - Web Accessibility Modifier extension",
+    "description": "makes some popular pages more usable for various dissablities.",
     "version": "1.0",
     "web_accessible_resources" : ["styles.css"],
     "content_scripts": [
