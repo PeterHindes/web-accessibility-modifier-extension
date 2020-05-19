@@ -86,18 +86,31 @@ for (var i = 0; i < keyboardfocusableElements.length; i++) {
 }
 
 // This section puts the "SIMPLE-SEARCH-RESULT" class on search resut links. These links are the parents of their titles which we fetch here by their class "LC20lb DKV0Md".
-var elements = document.getElementsByClassName(simpleSearchResultChildH3Title);
-for (var i = 0; i < elements.length; i++) {
-    var element = elements[i];
+var results = document.getElementsByClassName("r");
+for (var i = 0; i < results.length; i++) {
+    console.log (results.length);
+    var result = results[i];
+    var link = result.getElementsByTagName("A")[0];
+    var title = link.getElementsByTagName("H3")[0];
 
-    element.setAttribute("target","_selected_large_text");
 
-    element.parentNode.className = "SIMPLE-SEARCH-RESULT";
+    link.className = "SIMPLE-SEARCH-RESULT";
+    
+    console.log ("Lets clone");
+    var cln = title.cloneNode(true);
+    link.appendChild(cln);
+
+
+    title.setAttribute("target","_selected_large_text");
+
     // This puts simple search results before everything else
-    element.parentNode.setAttribute("tabindex","999");
+    /*element.parentNode.setAttribute("tabindex","999");
     if (i == 0) {
         element.parentNode.setAttribute("autofocus","true");
-    }
+    }*/
+
+
+
 }
 
 /*

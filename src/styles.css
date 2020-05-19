@@ -5,17 +5,20 @@
 }*/
 
 :root {
-    --bg-color: unset;
+    --bg-color: white;
     --font-siz: 20px;
 }
 
 h3[target=_selected_large_text] {
+    position: absolute;
     background-color: var(--bg-color);
     font-size: var(--font-siz) !important;
+    width: max-content !important;
+    z-index: 99 !important;
     transition: all 500ms ease-out;
 }
 .SIMPLE-SEARCH-RESULT:hover,
 .SIMPLE-SEARCH-RESULT:focus {
-    --bg-color: rgba(255, 255, 0, 0.582);
+    --bg-color: rgba(255, 255, 150);
     --font-siz: 250%;
 }
