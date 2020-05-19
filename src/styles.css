@@ -22,3 +22,11 @@ h3[target=_selected_large_text] {
     --bg-color: rgba(255, 255, 150);
     --font-siz: 250%;
 }
+
+#avalibleOn {
+    width: inherit;
+    padding-right: 1px;
+}
+#avalibleOnFeedback {
+    padding-right: 60px;
+}

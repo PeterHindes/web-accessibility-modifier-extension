@@ -7,54 +7,70 @@ const topStoriesMainDiv = "CBQQAA"; // Not a class. Data is in tag "data-hveid"
 const childOfChildOfTopStoriesDiv = "e2BEnf U7izfe";
 
 const childOfVideoDiv = "CBMQAA"; // Not a class. Data is in tag "data-hveid"
-const childOfChildOfVideoDiv = "e2BEnf U7izfe";
+const childOfChildOfVideoDiv = "CMLaue fVRq4d mIKy0c";
 
 const peopleAlsoAskMainDiv = "g kno-kp mnr-c g-blk";
 
 const resultsContainerId = "rso"; // Not a class. Data is in an id tag
 
+const movieOverviewAndReviewsID = "kp-wp-tab-overview"; // Not a class. Data is in an id tag
+const avalibleOnClass = "qLLird"; // to check if we are showing a media such as a movie
+const avalibleOnMasterNodeChild = "kp-blk EyBRub fm06If Wnoohf OJXvsb";
 
 // Reorder them in a friendly way without breakes between result types
-//document.getElementsByClassName(childOfChildOfTopStoriesDiv).parentNode.style.order = "4";
 var targetMaster = document.getElementById(resultsContainerId);
-/*var order = new Array(targetMaster.childElementCount);
-for (var i = 0; i < targetMaster.childElementCount; i++){
-    order[i] = targetMaster.childElementCount - i -1 ;
+function cloneToBottom(target) {
+    //console.log(target.outerHTML);
+    var cln = target.cloneNode(true);
+    targetMaster.appendChild(cln);
+    target.outerHTML = null;
 }
-var results = targetMaster.children;
-var newOrder = document.createDocumentFragment();
 
-order.forEach(function(idx) {
-    newOrder.appendChild(results[idx].cloneNode(true));
-});
+// Clones the targets to the bottom of the search results list. Then deletes its origonal.
+try {
+    var topStoriesTarget = document.getElementsByClassName(childOfChildOfTopStoriesDiv)[0].parentNode.parentNode;
+    //console.log("Top:");
+    //console.log(topStoriesTarget.outerHTML);
+    cloneToBottom(topStoriesTarget);
+} catch (error) {        
+}
 
-targetMaster.innerHTML = null;
-targetMaster.appendChild(newOrder);
-*/
+try {
+    var videosTarget = document.getElementsByClassName(childOfChildOfVideoDiv)[0].parentNode.parentNode;
+    //console.log("Vid:");
+    //console.log(videosTarget.outerHTML);
+    cloneToBottom(videosTarget);
+} catch (error) {    
+}
 
-
-
-var videosTarget = document.getElementsByClassName(childOfChildOfVideoDiv);
-console.log(videosTarget)
-console.log (videosTarget[0].parentNode.parentNode);
-
-//var viddddd = document.querySelector("g-section-with-header[data-hveid=\"CBwQAA\"]");
-setTimeout(() => {  console.log(document.querySelector("g-section-with-header[data-hveid='CBwQAA']")); }, 2000);
-
-
-//targetMaster.appendChild(videosTarget); // Add to end
-
-//videosTarget.outerHTML = null; // Remove old
-
-
-
+try {
+    var peopleAlsoAskTarget = document.getElementsByClassName(peopleAlsoAskMainDiv)[0];
+    //console.log("peeps:");
+    //console.log(peopleAlsoAskTarget.outerHTML);
+    cloneToBottom(peopleAlsoAskTarget);
+} catch (error) {    
+}
 
 
 
+// Put movie avalible on section into the info card
+if (document.getElementsByClassName( avalibleOnClass ).length ){
+    //console.log ("this is a movie");
+    var avalibleOnElement = document.getElementsByClassName(avalibleOnMasterNodeChild)[0].parentNode;
+    var movieOverviewAndReviewsElement = document.getElementById(movieOverviewAndReviewsID);
+
+    //console.log(avalibleOnElement);
+    //console.log(movieOverviewAndReviewsElement);
+
+    var cln = avalibleOnElement.cloneNode(true);
+    cln.setAttribute("id","avalibleOn"); // Give it info for css styles
+    cln.childNodes[1].setAttribute("id","avalibleOnFeedback");
+    movieOverviewAndReviewsElement.insertBefore(cln, movieOverviewAndReviewsElement.children[1]);
+    avalibleOnElement.outerHTML = null;
+}
 
 
-
-
+//parentElement.insertBefore(newElement, parentElement.children[2]);
 
 
 
@@ -88,7 +104,7 @@ for (var i = 0; i < keyboardfocusableElements.length; i++) {
 // This section puts the "SIMPLE-SEARCH-RESULT" class on search resut links. These links are the parents of their titles which we fetch here by their class "LC20lb DKV0Md".
 var results = document.getElementsByClassName("r");
 for (var i = 0; i < results.length; i++) {
-    console.log (results.length);
+    //console.log (results.length);
     var result = results[i];
     var link = result.getElementsByTagName("A")[0];
     var title = link.getElementsByTagName("H3")[0];
@@ -96,7 +112,7 @@ for (var i = 0; i < results.length; i++) {
 
     link.className = "SIMPLE-SEARCH-RESULT";
     
-    console.log ("Lets clone");
+    //console.log ("Lets clone");
     var cln = title.cloneNode(true);
     link.appendChild(cln);
 
