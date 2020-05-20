@@ -6,7 +6,8 @@
 
 :root {
     --bg-color: white;
-    --font-siz: 20px;
+    --font-siz: 20px; /*from google search page*/
+    --font-siz-grown: 700%;
 }
 
 h3[target=_selected_large_text] {
@@ -20,7 +21,7 @@ h3[target=_selected_large_text] {
 .SIMPLE-SEARCH-RESULT:hover,
 .SIMPLE-SEARCH-RESULT:focus {
     --bg-color: rgba(255, 255, 150);
-    --font-siz: 250%;
+    --font-siz: var(--font-siz-grown);
 }
 
 #avalibleOn {

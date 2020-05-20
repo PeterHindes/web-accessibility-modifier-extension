@@ -1,5 +1,8 @@
 // Written By Peter Hindes
 
+// Get css root
+let cssRoot = document.documentElement.style;
+
 // Here we define the class types and what they contain. If these change in the future they can be updated here easily.
 const simpleSearchResultChildH3Title = "LC20lb DKV0Md";
 
@@ -16,6 +19,57 @@ const resultsContainerId = "rso"; // Not a class. Data is in an id tag
 const movieOverviewAndReviewsID = "kp-wp-tab-overview"; // Not a class. Data is in an id tag
 const avalibleOnClass = "qLLird"; // to check if we are showing a media such as a movie
 const avalibleOnMasterNodeChild = "kp-blk EyBRub fm06If Wnoohf OJXvsb";
+
+// Catch settings changes from the settings page.
+var enableFontGrowLocal = true; // Default
+function updateSettings() {
+    console.log("Running Update");
+
+    chrome.storage.sync.get(['enableFontGrow', 'fontsizfocsd', 'fontsiztype'], function(data) {
+        enableFontGrowLocal = data.enableFontGrow;
+        console.log(data.enableFontGrow);
+        if (data.enableFontGrow == true){ // If the grow setting is on
+            // Enable tag for css
+            var results = document.getElementsByClassName("r");
+            for (var i = 0; i < results.length; i++) {
+                var result = results[i];
+                var link = result.getElementsByTagName("A")[0];
+                var title = link.getElementsByTagName("H3")[0];
+                title.setAttribute("target","_selected_large_text");
+            }
+            // Update in css
+            cssRoot.setProperty('--font-siz-grown', 
+                data.fontsizfocsd
+                +
+                data.fontsiztype
+            );
+            //console.log ("Set font in css to be: "+data.fontsizfocsd + data.fontsiztype);
+        }else{
+            //disable grow
+            // Disable tag for css
+            var results = document.getElementsByClassName("r");
+            for (var i = 0; i < results.length; i++) {
+                var result = results[i];
+                var link = result.getElementsByTagName("A")[0];
+                var title = link.getElementsByTagName("H3")[0];
+                title.removeAttribute("target");
+                console.log("Removed target from "+title);
+            }
+        }
+
+
+    });
+}
+chrome.runtime.onMessage.addListener(
+    function (request, sender, sendResponse) {
+        console.log ("Caught event");
+        if (request.settingsUpdate == true){ // If the event asks for an update
+            updateSettings();
+        }
+    }
+);
+//console.log("added listner");
+
 
 // Reorder them in a friendly way without breakes between result types
 var targetMaster = document.getElementById(resultsContainerId);
@@ -70,15 +124,6 @@ if (document.getElementsByClassName( avalibleOnClass ).length ){
 }
 
 
-//parentElement.insertBefore(newElement, parentElement.children[2]);
-
-
-
-
-
-
-
-
 // Section adds css in a debugable way.
 function injectStyles(url) {
     var elem = document.createElement('link');
@@ -89,7 +134,7 @@ function injectStyles(url) {
 injectStyles(chrome.extension.getURL('styles.css'));
 
 
-// Collects all elements that were selectable when the script first ran
+/*/ Collects all elements that were selectable when the script first ran
 const keyboardfocusableElements = [...document.querySelectorAll( // credit: https://zellwk.com/blog/keyboard-focusable-elements/
     'a, button, input, textarea, select, details, [tabindex]:not([tabindex="-1"])'
 )].filter(el => !el.hasAttribute('disabled'));
@@ -99,7 +144,7 @@ for (var i = 0; i < keyboardfocusableElements.length; i++) {
     var element = keyboardfocusableElements[i];
 
     element.setAttribute("tabindex","1000");
-}
+}*/
 
 // This section puts the "SIMPLE-SEARCH-RESULT" class on search resut links. These links are the parents of their titles which we fetch here by their class "LC20lb DKV0Md".
 var results = document.getElementsByClassName("r");
@@ -124,8 +169,6 @@ for (var i = 0; i < results.length; i++) {
     if (i == 0) {
         element.parentNode.setAttribute("autofocus","true");
     }*/
-
-
 
 }
 

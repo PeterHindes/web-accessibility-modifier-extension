@@ -2,6 +2,10 @@
 "manifest_version": 2,
     "name": "WAMe - Web Accessibility Modifier extension",
     "description": "makes some popular pages more usable for various dissablities.",
+    "permissions": [
+        "storage",
+        "tabs"
+    ],
     "version": "1.0",
     "web_accessible_resources" : ["styles.css"],
     "content_scripts": [
@@ -14,5 +18,13 @@
             ],
             "run_at": "document_end"
         }
-    ]
+    ],
+    "background": {
+        "scripts": ["background.js"]
+    },
+    "browser_action": {
+        "default_icon": "logo.png",
+        "default_title": "Open Settings for WAMe",
+        "default_popup": "settingsPopup/popup.html"
+    }
 }
