@@ -36,8 +36,13 @@ function updateSettings() {
                 var link = result.getElementsByTagName("A")[0];
                 var title = link.getElementsByTagName("H3")[0];
                 var spacerTitle = link.getElementsByTagName("H3")[1]; // Second h3 (spacer )
+                if (spacerTitle == undefined){
+                    setupResult(i,results);
+                    var spacerTitle = link.getElementsByTagName("H3")[1]; // Second h3 (spacer )
+                    console.log("Unexpected un-setup result in page.");
+                }
                 title.setAttribute("target","_selected_large_text");
-                spacerTitle.style.display = "unset";
+                spacerTitle.style.display = "show";
             }
             // Update in css
             cssRoot.setProperty('--font-siz-grown', 
@@ -51,12 +56,21 @@ function updateSettings() {
             // Disable tag for css and hide
             var results = document.getElementsByClassName("r");
             for (var i = 0; i < results.length; i++) {
-                var result = results[i];
-                var link = result.getElementsByTagName("A")[0];
-                var title = link.getElementsByTagName("H3")[0]; // Top h3 (origonal styled)
-                var spacerTitle = link.getElementsByTagName("H3")[1]; // Second h3 (spacer )
-                title.removeAttribute("target");
-                spacerTitle.style.display = "none";
+                try {
+                    var result = results[i];
+                    var link = result.getElementsByTagName("A")[0];
+                    var title = link.getElementsByTagName("H3")[0]; // Top h3 (origonal styled)
+                    var spacerTitle = link.getElementsByTagName("H3")[1]; // Second h3 (spacer )
+                    if (spacerTitle == undefined){
+                        setupResult(i,results);
+                        var spacerTitle = link.getElementsByTagName("H3")[1]; // Second h3 (spacer )
+                        console.log("Unexpected un-setup result in page.");
+                    }
+                    title.removeAttribute("target");
+                    spacerTitle.style.display = "none";
+                } catch (error) {
+                    
+                }
             }
         }
 
@@ -112,7 +126,8 @@ try {
 
 
 // Put movie avalible on section into the info card
-if (document.getElementsByClassName( avalibleOnClass ).length ){
+console.log(document.getElementsByClassName( avalibleOnClass ).length); // This is not the right tag!!!!
+/*if (document.getElementsByClassName( avalibleOnClass ).length ){
     //console.log ("this is a movie");
     var avalibleOnElement = document.getElementsByClassName(avalibleOnMasterNodeChild)[0].parentNode;
     var movieOverviewAndReviewsElement = document.getElementById(movieOverviewAndReviewsID);
@@ -125,7 +140,7 @@ if (document.getElementsByClassName( avalibleOnClass ).length ){
     cln.childNodes[1].setAttribute("id","avalibleOnFeedback");
     movieOverviewAndReviewsElement.insertBefore(cln, movieOverviewAndReviewsElement.children[1]);
     avalibleOnElement.outerHTML = null;
-}
+}*/
 
 
 // Section adds css in a debugable way.
@@ -151,9 +166,7 @@ for (var i = 0; i < keyboardfocusableElements.length; i++) {
 }*/
 
 // This section puts the "SIMPLE-SEARCH-RESULT" class on search resut links. These links are the parents of their titles which we fetch here by their class "LC20lb DKV0Md".
-var results = document.getElementsByClassName("r");
-for (var i = 0; i < results.length; i++) {
-    //console.log (results.length);
+function setupResult(i,results) {
     var result = results[i];
     var link = result.getElementsByTagName("A")[0];
     var title = link.getElementsByTagName("H3")[0];
@@ -173,7 +186,10 @@ for (var i = 0; i < results.length; i++) {
     if (i == 0) {
         element.parentNode.setAttribute("autofocus","true");
     }*/
-
+}
+var results = document.getElementsByClassName("r");
+for (var i = 0; i < results.length; i++) {
+    setupResult(i,results);
 }
 
 /*

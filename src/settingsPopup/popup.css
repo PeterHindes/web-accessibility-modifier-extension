@@ -51,6 +51,9 @@ button#resetSettings {
 
     bottom: 2%;
     position: absolute;
+
+    border-radius: 10px;
+    border:none;
     
 }
 

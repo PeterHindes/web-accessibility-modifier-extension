@@ -34,13 +34,33 @@ var inputs = document.querySelectorAll("input,select"); // Trigger on any change
 for (var i = 0; i < inputs.length; i++) {
     input = inputs[i];
     //console.log("Add event to "+input);
-    input.addEventListener("input", save);
+    //input.addEventListener("keyup", forceSave);
+    //input.addEventListener("keydown", saveOnTimer);
+    //input.addEventListener("mouseup", saveOnTimer);
+    //input.addEventListener("mousedown", saveOnTimer);
+    input.addEventListener("input", saveOnTimer);
+    //input.addEventListener("paste", forceSave);
+    //input.addEventListener("cut", saveOnTimer);
 }
 document.getElementById('resetSettings').addEventListener('click',reset)
 
 
-function save(){ // function to be called on updates
 
+
+
+var countdown = 50;
+var timerFunc;
+function saveOnTimer(){
+    clearTimeout(timerFunc);
+    timerFunc = setTimeout(save, countdown);
+}
+function forceSave() {
+    clearTimeout(timerFunc);
+    console.log("Forced save");
+    save();
+}
+
+function save(){ // function to be called on updates
     //console.log("Update sent");
 
     // Save data to be retrived
