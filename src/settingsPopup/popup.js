@@ -4,13 +4,27 @@ var fontsizfocsd = document.getElementById("fontsizfocsd");
 var fontsiztype = document.getElementById("fontsiztype");
 
 //for loading
+function checkUndefined(dataChild,defaultVal,name) {
+    if (dataChild == undefined){
+        return defaultVal;
+    } else {
+        return dataChild;
+    }
+}
 chrome.storage.sync.get(['enableFontGrow', 'fontsizfocsd', 'fontsiztype'], function(data) {
-    enableFontGrow.checked = data.enableFontGrow;
-    fontsizfocsd.value = data.fontsizfocsd;
-    fontsiztype.value = data.fontsiztype;
+    enableFontGrow.checked = checkUndefined(data.enableFontGrow, true);
+    fontsizfocsd.value = checkUndefined(data.fontsizfocsd, 250);
+    fontsiztype.value = checkUndefined(data.fontsiztype, "%");
+
+    // Resave incase of undefineds getting set
+    chrome.storage.sync.set({
+        enableFontGrow: enableFontGrow.checked,
+        fontsizfocsd: fontsizfocsd.value,
+        fontsiztype: fontsiztype.value
+    });
 });
 // Set defaults
-if (fontsizfocsd.value == null){
+if (fontsizfocsd.value == undefined){
     fontsizfocsd.value = "250";
 }
 
@@ -19,10 +33,10 @@ if (fontsizfocsd.value == null){
 var inputs = document.querySelectorAll("input,select"); // Trigger on any change
 for (var i = 0; i < inputs.length; i++) {
     input = inputs[i];
-    //console.log(input);
-    console.log("Add event to "+input);
+    //console.log("Add event to "+input);
     input.addEventListener("input", save);
 }
+document.getElementById('resetSettings').addEventListener('click',reset)
 
 
 function save(){ // function to be called on updates
@@ -48,5 +62,11 @@ function save(){ // function to be called on updates
 
 }
 
-
-// Not firing on type cange only number change and check
+function reset() {
+    chrome.storage.sync.clear(function() {
+        var error = chrome.runtime.lastError;
+        if (error) {
+            console.error(error);
+        }
+    });
+}

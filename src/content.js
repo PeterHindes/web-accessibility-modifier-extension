@@ -27,7 +27,7 @@ function updateSettings() {
 
     chrome.storage.sync.get(['enableFontGrow', 'fontsizfocsd', 'fontsiztype'], function(data) {
         enableFontGrowLocal = data.enableFontGrow;
-        console.log(data.enableFontGrow);
+        //console.log(data.enableFontGrow);
         if (data.enableFontGrow == true){ // If the grow setting is on
             // Enable tag for css
             var results = document.getElementsByClassName("r");
@@ -44,7 +44,7 @@ function updateSettings() {
                 data.fontsiztype
             );
             //console.log ("Set font in css to be: "+data.fontsizfocsd + data.fontsiztype);
-        }else{
+        }else{ // Remove css target for text growing
             //disable grow
             // Disable tag for css
             var results = document.getElementsByClassName("r");
@@ -53,14 +53,14 @@ function updateSettings() {
                 var link = result.getElementsByTagName("A")[0];
                 var title = link.getElementsByTagName("H3")[0];
                 title.removeAttribute("target");
-                console.log("Removed target from "+title);
+                //console.log("Removed target from "+title);
             }
         }
 
 
     });
 }
-chrome.runtime.onMessage.addListener(
+chrome.runtime.onMessage.addListener( // Entry point for a signal to update from the popup
     function (request, sender, sendResponse) {
         console.log ("Caught event");
         if (request.settingsUpdate == true){ // If the event asks for an update
@@ -69,7 +69,8 @@ chrome.runtime.onMessage.addListener(
     }
 );
 //console.log("added listner");
-
+// Run update on load
+updateSettings();
 
 // Reorder them in a friendly way without breakes between result types
 var targetMaster = document.getElementById(resultsContainerId);
@@ -80,7 +81,7 @@ function cloneToBottom(target) {
     target.outerHTML = null;
 }
 
-// Clones the targets to the bottom of the search results list. Then deletes its origonal.
+// Clones the targets to the bottom of the search results list. Then deletes its origonal.  ////         This is bad code clean it up later
 try {
     var topStoriesTarget = document.getElementsByClassName(childOfChildOfTopStoriesDiv)[0].parentNode.parentNode;
     //console.log("Top:");
@@ -158,7 +159,7 @@ for (var i = 0; i < results.length; i++) {
     link.className = "SIMPLE-SEARCH-RESULT";
     
     //console.log ("Lets clone");
-    var cln = title.cloneNode(true);
+    var cln = title.cloneNode(true); // Duplicate all the titles (we do this because the css floats the growable link which gives it no size in the page. this keeps the description in place)
     link.appendChild(cln);
 
 
