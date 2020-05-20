@@ -35,7 +35,9 @@ function updateSettings() {
                 var result = results[i];
                 var link = result.getElementsByTagName("A")[0];
                 var title = link.getElementsByTagName("H3")[0];
+                var spacerTitle = link.getElementsByTagName("H3")[1]; // Second h3 (spacer )
                 title.setAttribute("target","_selected_large_text");
+                spacerTitle.style.display = "unset";
             }
             // Update in css
             cssRoot.setProperty('--font-siz-grown', 
@@ -46,14 +48,15 @@ function updateSettings() {
             //console.log ("Set font in css to be: "+data.fontsizfocsd + data.fontsiztype);
         }else{ // Remove css target for text growing
             //disable grow
-            // Disable tag for css
+            // Disable tag for css and hide
             var results = document.getElementsByClassName("r");
             for (var i = 0; i < results.length; i++) {
                 var result = results[i];
                 var link = result.getElementsByTagName("A")[0];
-                var title = link.getElementsByTagName("H3")[0];
+                var title = link.getElementsByTagName("H3")[0]; // Top h3 (origonal styled)
+                var spacerTitle = link.getElementsByTagName("H3")[1]; // Second h3 (spacer )
                 title.removeAttribute("target");
-                //console.log("Removed target from "+title);
+                spacerTitle.style.display = "none";
             }
         }
 

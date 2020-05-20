@@ -6,16 +6,21 @@
         <link rel="stylesheet" href="popup.css" />
     </head>
     <body>
-        <p>A Checkbox Demo</p>
-        <input type="checkbox" id="enableFontGrow">Enable Font Growing</input><br />
-        <input type="number" id="fontsizfocsd" defau></input>
-        <select name="SizeType" id="fontsiztype">
-            <option value="%">%</option>
-            <option value="pt">pt</option>
-            <option value="em">em</option>
-            <option value="px">px</option>
-        </select> Font Size On Hover
-        <br/>
+        <h1>Settings For Page Moder</h1>
+        <hr />
+        <div id="bigblock">
+            <label><input type="checkbox" id="enableFontGrow" />Enable Font Growing</label>
+            <br />
+            <input type="number" id="fontsizfocsd"></input>
+            <select name="SizeType" id="fontsiztype">
+                <option value="%">%</option>
+                <option value="pt">pt</option>
+                <option value="em">em</option>
+                <option value="px">px</option>
+            </select> 
+            <p id="augmentText">Font Size On Hover</p>
+        </div>
+
         <button type="button" id="resetSettings">Reset Settings</button>
 
         <script src="popup.js"></script>

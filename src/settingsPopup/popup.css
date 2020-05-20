@@ -1,4 +1,91 @@
 :root {
-    width: 40em;
-    height: 25em;
+    width: 400px;
+    height: 600px;
+    --fontsiz: 2.5em;
+    --bgcol: rgb(44, 49, 49);
+    --txtcol: blanchedalmond;
+    background-color: black;
+    color: blanchedalmond;
+    font-size: var(--fontsiz);
+}
+
+input {
+    background-color: var(--bgcol);
+    color: var(--txtcol);
+    font-size: var(--fontsiz);
+    
+}
+
+input#fontsizfocsd {
+    width: 45%;
+}
+
+input[type=checkbox] {
+    transform : scale(3);
+    position: relative;
+    left: -15px;
+}
+label {
+    position: relative;
+    padding-left: 7%;
+    bottom: 1em;
+}
+
+select {
+    font-size: var(--fontsiz);
+    background-color: var(--bgcol);
+    color: var(--txtcol);
+    width: 18%;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+}
+
+button#resetSettings {
+    width: 96%;
+    height: 17%;
+    background-color: firebrick;
+    font-size: var(--fontsiz)/2;
+
+    bottom: 2%;
+    position: absolute;
+    
+}
+
+#augmentText {
+    position: relative;
+
+    font-size: 1.75em;
+    
+    display:inline
+}
+
+#bigblock {
+    position: relative;
+    top: 1.5em;
+}
+
+/* Spin Buttons modified */
+input[type="number"]::-webkit-outer-spin-button, 
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    background: #FFF no-repeat center center
+    url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAKUlEQVQYlWNgwAT/sYhhKPiPT+F/LJgEsHv37v+EMGkmkuImoh2NoQAANlcun/q4OoYAAAAASUVORK5CYII=);
+    image-rendering: pixelated;
+    background-size: 60px;
+    width: .5em;
+    border-left: 1px solid #BBB;
+    opacity: 1;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+input[type="number"]::-webkit-inner-spin-button:hover,
+input[type="number"]::-webkit-inner-spin-button:active{
+    outline-color: red;
+    outline-width: 5px;
 }
