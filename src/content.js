@@ -17,8 +17,10 @@ const peopleAlsoAskMainDiv = "g kno-kp mnr-c g-blk";
 const resultsContainerId = "rso"; // Not a class. Data is in an id tag
 
 const movieOverviewAndReviewsID = "kp-wp-tab-overview"; // Not a class. Data is in an id tag
-const avalibleOnClass = "qLLird"; // to check if we are showing a media such as a movie // THIS IS NOT UNIQUE TO THIS ELEMENT YOU MUST CHECK CONTENTS
+//const avalibleOnClass = "qLLird"; // to check if we are showing a media such as a movie // THIS IS NOT UNIQUE TO THIS ELEMENT YOU MUST CHECK CONTENTS
 const avalibleOnMasterNodeChild = "kp-blk EyBRub fm06If Wnoohf OJXvsb";
+
+const imagesForMainDiv = "LnbJhc";
 
 // Catch settings changes from the settings page.
 var enableFontGrowLocal = true; // Default
@@ -92,9 +94,16 @@ updateSettings();
 // Reorder them in a friendly way without breakes between result types
 var targetMaster = document.getElementById(resultsContainerId);
 function cloneToBottom(target) {
+    cloneTo(target,"bottom");
+}
+function cloneTo(target,location) {
     //console.log(target.outerHTML);
     var cln = target.cloneNode(true);
-    targetMaster.appendChild(cln);
+    if (location == "bottom"){
+        targetMaster.appendChild(cln);
+    } else if (typeof location == "number") {
+        targetMaster.insertBefore(cln, targetMaster.childNodes[location]);
+    }
     target.outerHTML = null;
 }
 
@@ -120,6 +129,14 @@ try {
     //console.log("peeps:");
     //console.log(peopleAlsoAskTarget.outerHTML);
     cloneToBottom(peopleAlsoAskTarget);
+} catch (error) {    
+}
+
+try {
+    var imagesForTarget = document.getElementsByClassName(imagesForMainDiv)[0];
+    //console.log("imagesfor:");
+    //console.log(imagesForTarget.outerHTML);
+    cloneTo(imagesForTarget,0);
 } catch (error) {    
 }
 
