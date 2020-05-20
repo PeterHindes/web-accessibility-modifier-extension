@@ -1,0 +1,22 @@
+{
+"manifest_version": 2,
+    "name": "Zoom By Code",
+    "description": "Zooms to content of articles cutting off advertizements and distractions.",
+    "permissions": [
+        "storage",
+        "tabs"
+    ],
+    "version": "1.0",
+    "web_accessible_resources" : ["styles.css"],
+    "content_scripts": [
+        {
+            "matches": [
+                "*://www.google.com/search*"
+            ],
+            "js": [
+                "content.js"
+            ],
+            "run_at": "document_end"
+        }
+    ]
+}
